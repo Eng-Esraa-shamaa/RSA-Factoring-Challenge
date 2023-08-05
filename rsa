@@ -1,18 +1,33 @@
 #!/usr/bin/python3
-from sys import argv
+"""
+Factorize numbers
+"""
+import sys
 
-with open(argv[1]) as f:
-    for l in f:
-        n = int(l)
-        print("{:d}=".format(n), end="")
-        if n % 2 == 0:
-            print("{}*2".format(n//2))
-            continue
-        for i in range(3, n, 2):
-            if n % i == 0:
-                factor = n//i
-                for j in range(3, factor, 2):
-                    if factor % j == 0 or i % j == 0:
+
+def factorize():
+    """
+    function factorize the number
+    """
+    try:
+        file = sys.argv[1]
+        with open(file) as f:
+            for line_number in f:
+                line_number = int(line_number)
+                if line_number % 2 == 0:
+                        print("{}={}*{}".format(line_number, line_number // 2, 2))
+                        continue
+                i = 3
+                while i < line_number // 2:
+                    if line_number % i == 0:
+                        print("{}={}*{}".format(line_number, line_number // i, i))
                         break
-                print("{}*{}".format(factor, i))
-                break
+                    i = i + 2
+                if i == (line_number // 2) + 1:
+                    print("{}={}*{}".format(line_number, line_number, 1))
+    except (IndexError):
+        pass
+
+
+factorize()
+              
